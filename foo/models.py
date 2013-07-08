@@ -5,6 +5,8 @@ class Foo(models.Model):
 	name = models.CharField(max_length=20, blank=True, null=True,
 		help_text="put your name here")
 	last_name = models.CharField(max_length=10)
+	dob = models.DateField(null=True, blank=True)
 
 	def __unicode__(self):
 		return self.name
+
