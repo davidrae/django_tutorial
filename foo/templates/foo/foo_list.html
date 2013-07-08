@@ -1,0 +1,32 @@
+<!--{% block content %}
+    <h2>Foos</h2>
+    <ul>
+        {% for foo in object_list %}
+            <li><a href="/foo/{{ foo.id }}">{{ foo.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}-->
+
+
+{% for foo in foo_list %}
+   <ul> {# Each "foo" is an object. #}
+    {{ foo.name|upper }}<br />
+    </ul>
+{% endfor %}
+{{ foo_list.paginator }}
+
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/foo/foo_list/?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/foo/foo_list/?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
