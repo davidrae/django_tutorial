@@ -1,0 +1,13 @@
+
+{% block content %}
+    <h2>Foos</h2>
+    <ul>
+        {% for foo in object_list %}
+            <li><a href="/foo/{{ foo.id }}">{{foo.name}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+<a href="/foo/create/">Create a Foo</a>
+
+

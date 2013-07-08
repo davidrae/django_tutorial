@@ -1,0 +1,13 @@
+<form action="/foo/{{ object.id }}/" method="post">
+	{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+</form>
+
+
+
+
+<form action="/foo/delete/{{ object.id }}/" method="post">{% csrf_token %}
+    <p>Below is the option to delete "{{ object }}"</p>
+    <input type="submit" value="Delete" />
+</form>
