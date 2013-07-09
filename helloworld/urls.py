@@ -9,6 +9,7 @@ from foo.views import AboutView
 from django.views.generic import TemplateView
 from foo.views import UpdateFoo, DeleteFoo, CreateFoo, FooList
 from django.views.generic.detail import SingleObjectMixin
+from foo.views import SampleView
 
 
 urlpatterns = patterns('',
@@ -22,6 +23,8 @@ urlpatterns = patterns('',
     url(r'^foo/delete/(?P<pk>.*)/$', DeleteFoo.as_view()),
     url(r'^foo/foo_list/$', FooList.as_view()),
     url(r'^foo/(?P<pk>.*)/$', UpdateFoo.as_view()),
+
+    url(r'^foo/index/$',SampleView.as_view()),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

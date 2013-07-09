@@ -6,7 +6,7 @@ class Paginator(object_list, per_page, orphans=0, allow_empty_first_page=True)
 
 def listing(request):
     foo_list = Contacts.objects.all()
-    paginator = Paginator(foo_list, 3) # Show 25 contacts per page
+    paginator = Paginator(foo_list, 3) # Show 3 contacts per page
 
     page = request.GET.get('page')
     try:

@@ -1,15 +1,21 @@
-# Create your views here.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        # Create your views here.
 
-from foo.models import Foo
+from foo.models import Foo, Emailer
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView
 
 from django.views.generic.edit import DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic.edit import FormView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 
+
+class SampleView(TemplateView):
+    template_name = "foo/index.html"
+    model = Emailer
 
 class AboutView(ListView):
     template_name = "foo/about.html"
@@ -36,3 +42,6 @@ class FooList(ListView):
     #queryset = Book.objects.filter(publisher__name="Acme Publishing")
     template_name = "foo/foo_list.html"
 
+'''class Index(request):
+    template_name ="foo/index.html"
+    return HttpResponse("Hello, world. You're at the foo index.")'''
