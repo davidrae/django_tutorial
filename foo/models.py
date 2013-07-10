@@ -22,19 +22,9 @@ class Emailer(models.Model):
     body = models.TextField(help_text='Content of the email')
 
 
-    def send_mail(subject, body, sender_email):
-        subject = request.POST.get('subject', '')
-        body = request.POST.get('body', '')
-        sender_email = request.POST.get('sender_email', '')
-        if subject and body and sender_email:
-            try:
-                send_mail(subject, body, sender_email, ['david.rae@vmsuk.com'])
-            except BadHeaderError:
-                return HttpResponse('Invalid header found.')
-            return HttpResponseRedirect('/foo/')
-        else:
+    def send_mail(self):
+        
+        if self.subject and self.body and self.sender_email:
+            send_mail(self.subject, self.body, self.sender_email, ['david.rae@vmsuk.com'])
         # In reality we'd use a form class
         # to get proper validation errors.
-            return HttpResponse('Make sure all fields are entered and valid.')
-
-            
