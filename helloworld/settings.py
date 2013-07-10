@@ -126,11 +126,11 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'foo',
     'south',
-    
+
     #'django-email-extras',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

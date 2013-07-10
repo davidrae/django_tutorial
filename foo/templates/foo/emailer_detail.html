@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'foo/css/main.css' %}"/>
+
+</head>
+<body>
+
+
+<div class="center">
+<br>
+
+<table>
+<tr>
+    <th>
+        <h2>Header</h2>
+    </th>
+        
+</tr>
+</table>
+
+</br>
+
+<table>
+
+<tr>
+    <td>
+        
+    </td>
+    <td>
+        {% block content %}
+    <h2>Sent Emails</h2>
+    <ul>
+            <li>{{ object }}</li>
+    </ul>
+        {% endblock %}
+    </td>
+    <td>
+        
+    </td>
+</tr>
+
+</table>
+</div>
+
+
+</body>
+</html>

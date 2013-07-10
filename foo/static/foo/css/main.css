@@ -1,0 +1,48 @@
+
+
+h2
+{
+background-color:#6495ed;
+}
+p
+{
+background-color:#e0ffff;
+}
+
+table, td, tr
+{
+    border:5px solid black;
+    padding:5px;
+
+}
+
+table
+{
+    width:1024px;
+}
+
+th
+{
+    height: 100px;
+    text-align:center; 
+}
+
+td
+{
+    text-align:left;
+    height:800px;
+    vertical-align:top;
+}
+
+tr
+{
+
+}
+
+.center
+{
+    margin:auto;    
+    background-color: #b0e0e6;
+    
+    
+}

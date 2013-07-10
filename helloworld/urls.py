@@ -9,7 +9,7 @@ from foo.views import AboutView
 from django.views.generic import TemplateView
 from foo.views import UpdateFoo, DeleteFoo, CreateFoo, FooList
 from django.views.generic.detail import SingleObjectMixin
-from foo.views import SampleView
+from foo.views import EmailView, EmailList, EmailDetails
 
 
 urlpatterns = patterns('',
@@ -22,7 +22,9 @@ urlpatterns = patterns('',
     url(r'^foo/create/$', CreateFoo.as_view()),
     url(r'^foo/delete/(?P<pk>.*)/$', DeleteFoo.as_view()),
     url(r'^foo/foo_list/$', FooList.as_view()),
-    url(r'^foo/sample_index/$',SampleView.as_view()),
+    url(r'^foo/email_index/$',EmailView.as_view()),
+    url(r'^foo/sent_emails/$',EmailList.as_view()),
+    url(r'^foo/sent_emails/(?P<pk>.*)/$',EmailDetails.as_view()),
     
     url(r'^foo/(?P<pk>.*)/$', UpdateFoo.as_view()),
 

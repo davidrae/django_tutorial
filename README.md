@@ -1,4 +1,4 @@
 django_tutorial
 ===============
 
-learning the basics of django framework
+learning the basics of the django framework
