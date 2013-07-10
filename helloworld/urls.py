@@ -22,9 +22,11 @@ urlpatterns = patterns('',
     url(r'^foo/create/$', CreateFoo.as_view()),
     url(r'^foo/delete/(?P<pk>.*)/$', DeleteFoo.as_view()),
     url(r'^foo/foo_list/$', FooList.as_view()),
+    url(r'^foo/sample_index/$',SampleView.as_view()),
+    
     url(r'^foo/(?P<pk>.*)/$', UpdateFoo.as_view()),
 
-    url(r'^foo/index/$',SampleView.as_view()),
+
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

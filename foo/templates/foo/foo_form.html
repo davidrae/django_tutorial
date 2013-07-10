@@ -4,6 +4,10 @@
     <input type="submit" value="Update" /><button type="button" onclick="location.href='/foo/'">Cancel</button>
 </form>
 
+<form action="/foo/delete/{{ object.id }}/" method="post">{% csrf_token %}
+    <p>Below is the option to delete: "{{ object }}"?</p>
+    <input type="submit" value="Delete" />
+</form>
 
 
 

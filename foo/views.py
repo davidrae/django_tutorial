@@ -14,7 +14,7 @@ from django.http import HttpResponse
 
 
 class SampleView(TemplateView):
-    template_name = "foo/index.html"
+    template_name = "foo/sample_index.html"
     model = Emailer
 
 class AboutView(ListView):
