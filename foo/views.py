@@ -29,6 +29,10 @@ class EmailDetails(DetailView):
     model = Emailer
     success_url = "foo/email_index.html"
 
+class DeleteEmail(DeleteView):
+    model = Emailer
+    success_url = "/foo/sent_emails/"
+
 
 class AboutView(ListView):
     template_name = "foo/about.html"

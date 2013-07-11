@@ -17,14 +17,27 @@
   <div class="row">
 
     <div  class="column left">
-        
+        <p>stuff can be put here</p>
+        <p><button type="button" onclick="location.href='/foo/sent_emails'">Return</button></p>
     </div>
 
-    <div  class="column">
-        <p>{{ object }}</p>
+    <div  class="column center">
+        <p class="margin">
+                
+            <p>Subject: {{ object.subject }}</p>
+            <p>Sender: {{ object.sender_name }}</p>
+            <p>Email: {{ object.sender_email }}</p>
+            <p>Body: {{ object.body }}</p>
+
+        </p>
     </div>
 
     <div  class="column right">
+
+        <form action="/foo/email_index/delete/{{ object.id }}/" method="post">{% csrf_token %}
+            <p>Below is the option to delete this email </p>
+            <input type="submit" value="Delete" />
+        </form>
         
     </div>
 
@@ -32,6 +45,12 @@
 
     <div class="clear"></div>
 </div>
+
+<div class="footer">
+      <p>&copy; 2005-2013 <a href="https://www.djangoproject.com/foundation/">Django Software Foundation</a> unless otherwise noted. Django is a registered trademark of the Django Software Foundation.
+      <a href="http://mediatemple.net/">Linux Web hosting</a> graciously provided by Media Temple.
+      </p>
+    </div>
 
 
 </body>

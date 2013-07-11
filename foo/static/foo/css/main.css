@@ -1,7 +1,11 @@
 h2
 {
     text-align: center;
+    font-family:"verdana", Sans-serif;
 }
+
+
+
 
 .main 
 {
@@ -21,18 +25,37 @@ h2
 {
     width:474px;
     border: 1px;
-    background-color: yellow;
+    background-color: rgb(255,255,255) ;
     float: left;
-    height: 100px;
+    height: 300px;
     border: solid 1px;
+    font-family:"verdana", Sans-serif;
 }
 
 .column.left, .column.right
 {
-    width:250px;
+    width:210px;
+    background-color: rgb(240,240,240);
+    padding-left: 20px;
+    padding-right: 20px;
 }
+
+.column.center
+{
+    width:434px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+    
 
 .clear 
 {
     clear: both;
+}
+
+.footer
+{
+    font-family:"verdana", Sans-serif;
+    text-align: center;
+    font-size: 10px;
 }

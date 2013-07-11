@@ -28,7 +28,6 @@ class Emailer(models.Model):
             send_mail(self.subject, self.body, self.sender_email, ['david.rae@vmsuk.com'])
 
     def __unicode__(self):
-        return "Emailer %s %s" % (self.body, self.sender_email)
+        return "Emailer: '%s' '%s' '%s' '%s'" % (self.subject, self.sender_name, self.body, self.sender_email)
 
-        # In reality we'd use a form class
-        # to get proper validation errors.
+

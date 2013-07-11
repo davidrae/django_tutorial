@@ -1,8 +1,18 @@
+<button type="button" onclick="location.href='/foo/email_index'">Return</button>
+
+
 {% block content %}
     <h2>Sent Emails</h2>
     <ul>
         {% for foo in object_list %}
-            <li>{{ object }}</li>
+            <li><a href="/foo/sent_emails/{{ foo.id }}">{{ foo.subject }}</li>
         {% endfor %}
     </ul>
 {% endblock %}
+
+
+<br>
+
+<p><button type="button" onclick="location.href='/foo/email_index/'">Return (This button is wrong)</button></p>
+<p><button type="button" onclick="location.href='/foo/sent_emails'">Return somewhere else (so is this one)</button></p>
+
