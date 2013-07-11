@@ -9,41 +9,26 @@
 </head>
 <body>
 
+<div id="container">
+    <h2>Details of email </h2>
+</div>
 
-<div class="center">
-<br>
+<div id="container">
+  <div id="row">
 
-<table>
-<tr>
-    <th>
-        <h2>Header</h2>
-    </th>
+    <div id="left">
         
-</tr>
-</table>
+    </div>
 
-</br>
+    <div id="middle">
+        <p>{{ object }}</p>
+    </div>
 
-<table>
-
-<tr>
-    <td>
+    <div id="right">
         
-    </td>
-    <td>
-        {% block content %}
-    <h2>Sent Emails</h2>
-    <ul>
-            <li>{{ object }}</li>
-    </ul>
-        {% endblock %}
-    </td>
-    <td>
-        
-    </td>
-</tr>
+    </div>
 
-</table>
+    </div>
 </div>
 
 
