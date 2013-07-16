@@ -31,3 +31,22 @@ class Emailer(models.Model):
         return "Emailer: '%s' '%s' '%s' '%s'" % (self.subject, self.sender_name, self.body, self.sender_email)
 
 
+class Login(models.Model):
+    username = models.CharField(max_length = 30)
+    password = models.CharField(max_length = 30)
+    
+    '''def login(request):
+    if request.method != 'POST':
+        raise Http404('Only POSTs are allowed')
+    try:
+        m = Member.objects.get(username=request.POST['username'])
+        if m.password == request.POST['password']:
+            request.session['member_id'] = m.id
+            return HttpResponseRedirect('/you-are-logged-in/')
+    except Member.DoesNotExist:
+        return HttpResponse("Your username and password didn't match.")'''
+
+    def __unicode__(self):
+        return self.name
+
+

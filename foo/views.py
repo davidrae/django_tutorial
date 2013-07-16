@@ -1,6 +1,6 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         # Create your views here.
 
-from foo.models import Foo, Emailer
+from foo.models import Foo, Emailer, Login
 from django.views.generic import ListView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import CreateView
@@ -13,6 +13,11 @@ from django.views.generic.edit import FormView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.views.generic.detail import BaseDetailView
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+from django.contrib import auth
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 
 class EmailView(CreateView):
@@ -32,6 +37,39 @@ class EmailDetails(DetailView):
 class DeleteEmail(DeleteView):
     model = Emailer
     success_url = "/foo/sent_emails/"
+
+#class LoginView(CreateView):
+ #   model = Login
+  #  success_url = "foo/login_form.html"
+
+
+class CreateUser(CreateView):
+    model = Login
+    success_url = "/foo/"
+
+
+def login_view(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = auth.authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+        # Correct password, and the user is marked "active"
+        auth.login(request, user)
+        # Redirect to a success page.
+        return HttpResponseRedirect("/foo/loggedin/")
+    else:
+        # Show an error page
+            return render_to_response("foo/login.html", {FormView},
+                              context_instance=RequestContext(request))
+
+
+
+
+def logout_view(request):
+    auth.logout(request)
+    # Redirect to a success page.
+    return HttpResponseRedirect("/account/loggedout/")
+
 
 
 class AboutView(ListView):
