@@ -51,33 +51,40 @@ class CreateUser(CreateView):
 def login_view(request):
    
     form = UserForm()
-    user = None
+    user = auth.get_user(request)
+    #import pdb;pdb.set_trace()
+
     if request.method == 'POST':
-        #import pdb;pdb.set_trace()
         form = UserForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
 
             user = auth.authenticate(username=username, password=password)
-        
-    if user is not None and user.is_active:
-        # Correct password, and the user is marked "active"
-        auth.login(request, user)
-        # Redirect to a success page.
-        return HttpResponseRedirect("/foo/loggedin/")
-    else:
-        # Show an error page
+            auth.login(request, user)
+    
+    #if user is not None and user.is_active and user.is_authenticated() and not user.is_anonymous():
+
+    if user is None or user.is_anonymous():
         messages.error(request, "Username or password is incorrect")
         return render_to_response("foo/login.html", {'form': form, 'cheese': 'is yellow'},
                               context_instance=RequestContext(request))
+        
+    #import pdb;pdb.set_trace()
+    if user.is_active and user.is_authenticated():
+        return HttpResponseRedirect("/foo/loggedin/")
+
+        # Correct password, and the user is marked "active"
+        # Redirect to a success page.
+
+        # Show an error page
 
 
 def logout_view(request):
     #import pdb;pdb.set_trace()
     auth.logout(request)
     # Redirect to a success page.
-    return HttpResponseRedirect("/foo/")
+    return HttpResponseRedirect("/foo/login/")
 
 #@login_required(login_url='/foo/login/')
 class LoggedIn(ListView):
