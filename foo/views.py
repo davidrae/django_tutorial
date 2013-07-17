@@ -47,6 +47,7 @@ class CreateUser(CreateView):
     model = Login
     success_url = "/foo/"
 
+#@login_required
 def login_view(request):
    
     form = UserForm()
@@ -73,11 +74,12 @@ def login_view(request):
 
 
 def logout_view(request):
+    #import pdb;pdb.set_trace()
     auth.logout(request)
     # Redirect to a success page.
     return HttpResponseRedirect("/foo/")
 
-#@login_required
+#@login_required(login_url='/foo/login/')
 class LoggedIn(ListView):
     #form = Userform()
     model = Login
