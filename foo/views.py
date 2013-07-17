@@ -1,4 +1,3 @@
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        # Create your views here.
 
 from foo.models import Foo, Emailer, Login
 from django.views.generic import ListView
@@ -18,6 +17,9 @@ from django.template import RequestContext
 
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from foo.forms import UserForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 class EmailView(CreateView):
@@ -38,20 +40,26 @@ class DeleteEmail(DeleteView):
     model = Emailer
     success_url = "/foo/sent_emails/"
 
-#class LoginView(CreateView):
- #   model = Login
-  #  success_url = "foo/login_form.html"
+
 
 
 class CreateUser(CreateView):
     model = Login
     success_url = "/foo/"
 
-
 def login_view(request):
-    username = request.POST.get('username', '')
-    password = request.POST.get('password', '')
-    user = auth.authenticate(username=username, password=password)
+   
+    form = UserForm()
+    user = None
+    if request.method == 'POST':
+        #import pdb;pdb.set_trace()
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+
+            user = auth.authenticate(username=username, password=password)
+        
     if user is not None and user.is_active:
         # Correct password, and the user is marked "active"
         auth.login(request, user)
@@ -59,16 +67,21 @@ def login_view(request):
         return HttpResponseRedirect("/foo/loggedin/")
     else:
         # Show an error page
-            return render_to_response("foo/login.html", {FormView},
+        messages.error(request, "Username or password is incorrect")
+        return render_to_response("foo/login.html", {'form': form, 'cheese': 'is yellow'},
                               context_instance=RequestContext(request))
-
-
 
 
 def logout_view(request):
     auth.logout(request)
     # Redirect to a success page.
-    return HttpResponseRedirect("/account/loggedout/")
+    return HttpResponseRedirect("/foo/")
+
+#@login_required
+class LoggedIn(ListView):
+    #form = Userform()
+    model = Login
+    success_url = "foo/loggedin"
 
 
 

@@ -1,0 +1,9 @@
+<p>
+You have logged in!
+</p>
+
+<form action="/foo/logout/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Logout" />
+</form>
