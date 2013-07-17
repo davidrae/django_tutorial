@@ -1,6 +1,20 @@
-<p>
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block head-css %}
+    <link rel="stylesheet" href="{% static 'foo/css/main.css' %}">
+{% endblock %}
+
+
+
+
+
+{% block main %}
+
+<h2>
 You have logged in!
-</p>
+</h2>
 {{ form.username|upper }} 
 
 <form action="/foo/logout/" method="post">
@@ -9,3 +23,6 @@ You have logged in!
 
     <input type="submit" value="Logout" />
 </form>
+    
+{% endblock %}
+

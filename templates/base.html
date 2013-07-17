@@ -1,0 +1,63 @@
+<!doctype html>
+{% load base_extras %}
+{% load snippets %}
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<head>
+    
+    <meta charset="UTF-8">
+    <title>{% block title %}VMS{% endblock %} - {% block company_title_brand %}Abacus{% endblock %}</title>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    
+{% block header_meta %}
+    <meta name="description" content="{% block description%}{% endblock %}">
+    <meta name="author" content="{% snippet 'author' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/png" href="{{ MEDIA_URL }}images/favicon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ MEDIA_URL }}images/114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ MEDIA_URL }}images/144.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ MEDIA_URL }}images/114.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ MEDIA_URL }}images/144.png" />
+    <!--[if lt IE 7 ]>
+    <script src="{{ MEDIA_URL }}js/boilerplate/libs/dd_belatedpng.js"></script>
+    <script> DD_belatedPNG.fix('img, .png_bg');</script>
+    <![endif]-->
+    
+{% endblock header_meta %}
+    <link rel="shortcut icon" href="{{ MEDIA_URL }}images/favicon.ico">
+{% block head-css %}
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/reveal.css">
+        <link rel="stylesheet" href="{{ MEDIA_URL }}css/style.css">
+{% endblock %}
+
+    <script type="text/javascript">
+        var MEDIA_URL = "{{ MEDIA_URL }}";
+    </script>
+        
+{% block head-js %}
+        <!-- Header Javascript -->
+{% endblock %}
+</head> 
+
+<body class="{% block class %}{% endblock %}" style="">
+{% block header %}{% endblock %}
+{% block main %}{% endblock %}
+{% block footer-javascript %}{% endblock %}
+{% block footer-js %}{% endblock %}
+<div class="footer">
+    <div class="line">
+        <p class="links">
+            <a href="/help/" class='help'>Help</a>
+            <a href="/support/">Support</a>
+        </p>
+        <p class="name">Abacus Mark II - {{ version|slice:"-6:" }}</p>
+    </div>
+    <p class="copyright">All information is copyright to {{ COMPANY_NAME }}</p>
+</div>
+</body>
+
+</html>
