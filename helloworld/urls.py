@@ -9,7 +9,7 @@ from foo.views import AboutView
 from django.views.generic import TemplateView
 from foo.views import UpdateFoo, DeleteFoo, CreateFoo, FooList
 from django.views.generic.detail import SingleObjectMixin
-from foo.views import EmailView, EmailList, EmailDetails, DeleteEmail, login_view, CreateUser, LoggedIn, logout_view
+from foo.views import EmailView, EmailList, EmailDetails, DeleteEmail, login_view, CreateUser, LoggedIn, logout_view, hello_pdf, my_image
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = patterns('',
@@ -28,6 +28,11 @@ urlpatterns = patterns('',
     url(r'^foo/loggedin/$', login_required(LoggedIn.as_view())),
     url(r'^foo/logout/$', logout_view),
     url(r'^accounts/login/$', login_view),
+
+    url(r'^foo/hello/$', hello_pdf),
+    url(r'^foo/image/$', my_image),
+
+
 
     url(r'^foo/email_index/$',EmailView.as_view()),
     url(r'^foo/sent_emails/$',EmailList.as_view()),

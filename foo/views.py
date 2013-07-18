@@ -20,6 +20,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from foo.forms import UserForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from reportlab.pdfgen import canvas
 
 
 class EmailView(CreateView):
@@ -86,6 +87,8 @@ def logout_view(request):
     # Redirect to a success page.
     return HttpResponseRedirect("/foo/login/")
 
+
+
 #@login_required(login_url='/foo/login/')
 class LoggedIn(ListView):
     #form = Userform()
@@ -120,3 +123,26 @@ class FooList(ListView):
     template_name = "foo/foo_list.html"
 
 
+
+def my_image(request):
+    image_data = open("/var/projects/helloworld2/helloworld/foo/static/foo/images/banana.jpg", "rb").read()
+    return HttpResponse(image_data, mimetype="image/jpg")
+
+
+
+def hello_pdf(request):
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(mimetype='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=hello.pdf'
+
+    # Create the PDF object, using the response object as its "file."
+    p = canvas.Canvas(response)
+
+    # Draw things on the PDF. Here's where the PDF generation happens.
+    # See the ReportLab documentation for the full list of functionality.
+    p.drawString(100, 100, "Hello world.")
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+    return response
