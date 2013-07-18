@@ -21,6 +21,9 @@ from foo.forms import UserForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from reportlab.pdfgen import canvas
+import os
+from django.conf import settings
+
 
 
 class EmailView(CreateView):
@@ -124,11 +127,14 @@ class FooList(ListView):
 
 
 
+
+
 def my_image(request):
-    image_data = open("/var/projects/helloworld2/helloworld/foo/static/foo/images/banana.jpg", "rb").read()
+    import pdb;pdb.set_trace()
+    current_path = os.path.dirname(__file__)
+    banana_path = os.path.join(current_path, "static", "foo", "images", "banana.jpg")
+    image_data = open(banana_path, "rb").read()
     return HttpResponse(image_data, mimetype="image/jpg")
-
-
 
 def hello_pdf(request):
     # Create the HttpResponse object with the appropriate PDF headers.
