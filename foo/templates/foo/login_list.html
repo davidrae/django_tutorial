@@ -9,20 +9,24 @@
 
 
 
+{% block title %}
+<h3>You have logged in!</h3>
+{% endblock %}
 
-{% block main %}
 
-<h2>
-You have logged in!
-</h2>
-{{ form.username|upper }} 
 
-<form action="/foo/logout/" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
 
-    <input type="submit" value="Logout" />
-</form>
+{% block main-center %}
+    {{ block.super }}
+
+    <form action="/foo/logout/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="Logout" />
+    </form>
+
+    
     
 {% endblock %}
 
