@@ -1,0 +1,14 @@
+<p>You searched for: <strong>{{ query }}</strong></p>
+
+{% if foo %}
+    <P>The element you are looking for exists!</P>
+    
+    {{ q.name|upper }} {{ q.last_name|upper }}<br />
+    
+
+
+{% else %}
+    <p>No Foos matched your search criteria.</p>
+{% endif %}
+
+<button type="button" onclick="location.href='/foo/'">Return</button>

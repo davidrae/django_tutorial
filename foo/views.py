@@ -12,7 +12,7 @@ from django.views.generic.edit import FormView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.views.generic.detail import BaseDetailView
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 
 from django.contrib import auth
@@ -193,3 +193,22 @@ def hello_pdf(request):
     # Get the value of the StringIO buffer and write it to the response.
     response.write(temp.getvalue())
     return response
+
+def search_form(request):
+    return render(request, 'foo/search_form.html')
+
+def search(request):
+    #import pdb;pdb.set_trace()
+
+    if 'q' in request.GET and request.GET['q']:
+        q = request.GET['q']
+        if not q:
+            error = True
+        elif len(q) > 20:
+            return HttpResponse('Please submit a query shorter than 20 characters.')
+        else:
+            foo = Foo.objects.filter(name__icontains=q)
+            return render(request, 'foo/search_results.html',
+                {'foo': foo, 'query': q})
+    else:
+        return HttpResponse('Please submit a search term.')

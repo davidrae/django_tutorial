@@ -11,7 +11,7 @@ from foo.views import UpdateFoo, DeleteFoo, CreateFoo, FooList
 from django.views.generic.detail import SingleObjectMixin
 from foo.views import EmailView, EmailList, EmailDetails, DeleteEmail
 from foo.views import login_view, CreateUser, LoggedIn, logout_view, hello_pdf
-from foo.views import my_image
+from foo.views import my_image, search_form, search
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = patterns('',
@@ -36,7 +36,8 @@ urlpatterns = patterns('',
     url(r'^foo/hello/$', hello_pdf),
     url(r'^foo/image/$', my_image),
 
-
+    url(r'^foo/search-form/$', search_form),
+    url(r'^foo/search/$', search),
 
     url(r'^foo/email_index/$',EmailView.as_view()),
     url(r'^foo/sent_emails/$',EmailList.as_view()),
