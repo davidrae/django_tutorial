@@ -17,12 +17,14 @@ from django.template import RequestContext
 
 from django.contrib import auth
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from foo.forms import UserForm
+from foo.forms import UserForm, FooForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from reportlab.pdfgen import canvas
 import os
 from django.conf import settings
+from cStringIO import StringIO
+from reportlab.lib.units import inch
 
 
 
@@ -67,7 +69,8 @@ def login_view(request):
             user = auth.authenticate(username=username, password=password)
             auth.login(request, user)
     
-    #if user is not None and user.is_active and user.is_authenticated() and not user.is_anonymous():
+    #if user is not None and user.is_active and user.is_authenticated() and not 
+    #user.is_anonymous():
 
     if user is None or user.is_anonymous():
         messages.error(request, "Username or password is incorrect")
@@ -85,7 +88,6 @@ def login_view(request):
 
 
 def logout_view(request):
-    #import pdb;pdb.set_trace()
     auth.logout(request)
     # Redirect to a success page.
     return HttpResponseRedirect("/foo/login/")
@@ -114,8 +116,23 @@ class DeleteFoo(DeleteView):
 
 class CreateFoo(CreateView):
     template_name = "foo/create.html"
+    #form = FooForm()
     model = Foo
     success_url = "/foo/"
+
+def create_foo(request):
+    #import pdb;pdb.set_trace()
+    
+    form = FooForm()
+    user = auth.get_user(request)
+    #import pdb;pdb.set_trace()
+    name = form["name"]
+    last_name = form["last_name"]
+    dob = form["dob"]
+
+
+
+
 
 class FooList(ListView):
 
@@ -130,25 +147,49 @@ class FooList(ListView):
 
 
 def my_image(request):
-    import pdb;pdb.set_trace()
     current_path = os.path.dirname(__file__)
     banana_path = os.path.join(current_path, "static", "foo", "images", "banana.jpg")
     image_data = open(banana_path, "rb").read()
     return HttpResponse(image_data, mimetype="image/jpg")
+
+
+
 
 def hello_pdf(request):
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(mimetype='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=hello.pdf'
 
-    # Create the PDF object, using the response object as its "file."
-    p = canvas.Canvas(response)
+    temp = StringIO()
+
+    # Create the PDF object, using the StringIO object as its "file."
+    c = canvas.Canvas(temp)
 
     # Draw things on the PDF. Here's where the PDF generation happens.
     # See the ReportLab documentation for the full list of functionality.
-    p.drawString(100, 100, "Hello world.")
+    # move the origin up and to the left
+    c.translate(inch,inch)
+    # define a large font
+    c.setFont("Helvetica", 14)#
+    # choose some colors
+    c.setStrokeColorRGB(0.2,0.5,0.3)
+    c.setFillColorRGB(1,0,1)
+    # draw some lines
+    c.line(0,0,0,1.7*inch)
+    c.line(0,0,1*inch,0)
+    # draw a rectangle
+    c.rect(0.2*inch,0.2*inch,1*inch,1.5*inch, fill=1)
+    # make text go straight up
+    c.rotate(90)
+    # change color
+    c.setFillColorRGB(0,0,0.77)
+    # say hello (note after rotate the y coord needs to be negative!)
+    c.drawString(0.3*inch, -inch, "Hello World")
 
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
+    # Close the PDF object cleanly.
+    c.showPage()
+    c.save()
+
+    # Get the value of the StringIO buffer and write it to the response.
+    response.write(temp.getvalue())
     return response
